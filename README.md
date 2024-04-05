@@ -4,7 +4,31 @@ Monitor amount changes for a given wallet and list of tokens on Ethereum, PulseC
 # Intro
 This script uses the [Debank API](https://cloud.debank.com) (requires subscription for `units`) to monitor token amount changes for a wallet.
 
-# Example
+# Usage
+**Command line**
+
+```
+$ ./monitor.py (json config file)
+```
+
+**Quick run**
+```
+$ ./monitor.py config.json
+PLS:  100
+PLSX: 1000
+HEX:  10000
+INC:  1
+
+Change detected for PLS: 100 -> 105 -- https://debank.com/profile/0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/history
+Notification sent.
+
+PLS:  105
+PLSX: 1000
+HEX:  10000
+INC:  1
+
+(continues monitoring from here...)
+```
 
 # Configuration
 
@@ -87,3 +111,6 @@ And once configured, the command line remains the same.
 - IFTTT (pro account)
 
 # Notes
+- Adjust `SLEEP_SECONDS` in the script for how often to make calls to check for asset amount updates, default time is 10 minutes (more often = using more Debank API units, so be aware of that)
+- Logs (text format) are kept in the local `logs/` directory for every run
+- 
