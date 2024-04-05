@@ -1,5 +1,5 @@
 # monitor-wallet
-Monitor amount changes for a given wallet and list of tokens on Ethereum, PulseChain or any other chains supported by Debank
+Monitor amount changes for a given wallet and list of tokens on Ethereum, PulseChain or any other chains supported by Debank. Even get SMS alerts!
 
 # Intro
 This script uses the [Debank API](https://cloud.debank.com) (requires subscription for `units`) to monitor token amount changes for a wallet.
@@ -51,7 +51,7 @@ In this example, we monitor 0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx for asset
 Where `wallet_id` is the wallet address to monitor, `chain` is the blockchain network, `name` is the name of the token and `id` is the address (or if native token, the ticker) of the asset to monitor.
 
 # Setup
-The code as-is can be used in two primary ways, for running in the console, monitoring for changes and logging automatically to disk OR in addition to that, sending email/sms alerts when asset amounts change. However, it can be also modified to be part of the backend for a bigger project or web UI, there are a ton of possibilities with the Debank API.
+The code as-is can be used in two primary ways, for running in the console, monitoring for changes and logging automatically to disk OR in addition to that, sending SMS alerts when asset amounts change. However, it can be also modified to be part of the backend for a bigger project or web UI, there are a ton of possibilities with the Debank API.
 
 So you can have a Linux computer, or a server, and run the script on it. Recommend to run it in `tmux` to keep the session alive during disconnects OR create a service for it, something to make sure it runs over periods of time without interruption for continous monitoring. This also requires [Debank API](https://cloud.debank.com) units to call the API.
 
@@ -64,7 +64,7 @@ This is as simple as running the script with a JSON configuration file, in this 
 $ ./monitor.py wallet.json
 ```
 
-## Email + SMS Alerts
+## SMS Alerts
 There are two parts to this.
 - Setup the msmtp email client (for example, using gmail account)
 - Setup IFTTT (requires Pro account)
@@ -87,10 +87,10 @@ password "YOURPASSWORD"
 account default : gmail
 ```
 
-And the script will call `msmtp` to send emails once enabled. This requires a quick code change, just flip `EMAIL_ALERT` to True to enable email+sms alerts in the script.
+And the script will call `msmtp` to send emails once enabled. This requires a quick code change, just flip `EMAIL_ALERT` to True to enable SMS alerts in the script.
 
 ### SMS
-It requires sign-up for a service such as [IFTTT](https://www.ifttt.com) for alerts over email and text message.
+It requires sign-up for a service such as [IFTTT](https://www.ifttt.com) for alerts over SMS message. This works by sending an email to IFTTT, triggering an applet and it sending a txt message to the specified number.
 
 - Sign up for IFTTT Pro account
 - Create applet -> Classic -> If This -> Add
@@ -106,6 +106,7 @@ And once configured, the command line remains the same.
 # Requirements / Environment
 - Linux server
 - Python
+- Email address (gmail)
 - msmtp client
 - Debank API (paid subscription)
 - IFTTT (pro account)
