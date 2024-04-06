@@ -30,6 +30,8 @@ INC:  1
 (continues monitoring from here...)
 ```
 
+`MINIMUM_CHANGE` and `USD_MINIMUM` in the code are adjustable as necessary to avoid notifications due to small changes in asset amounts. For example, you could adjust them to only alert on large asset value or big dollar amount changes.
+
 # Configuration
 
 JSON format with a few simple fields.
@@ -49,6 +51,17 @@ In this example, we monitor 0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx for asset
 ```
 
 Where `wallet_id` is the wallet address to monitor, `chain` is the blockchain network, `name` is the name of the token and `id` is the address (or if native token, the ticker) of the asset to monitor.
+
+# Requirements / Environment
+`Just the basics + Debank API units are required to run the script`
+- Linux server
+- Python
+- Debank API (paid subscription)
+
+`And in addition to those, these apps and services are required to get SMS alerts`
+- msmtp client
+- Email address (gmail)
+- IFTTT (pro account)
 
 # Setup
 The code as-is can be used in two primary ways, for running in the console, monitoring for changes and logging automatically to disk OR in addition to that, sending SMS alerts when asset amounts change. However, it can be also modified to be part of the backend for a bigger project or web UI, there are a ton of possibilities with the Debank API.
@@ -80,9 +93,9 @@ logfile ~/.msmtp.log
 account gmail
 host smtp.gmail.com
 port 587
-from YOUREMAILADDRESS@gmail.com
-user YOUREMAILADDRESS@gmail.com
-password "YOURPASSWORD"
+from YOUR-EMAIL-ADDRESS@gmail.com
+user YOUR-EMAIL-ADDRESS@gmail.com
+password "YOUR-APP-PASSWORD"
 
 account default : gmail
 ```
@@ -103,15 +116,16 @@ Configure SMS numbers and email addresses as necessary. When complete, it should
 
 And once configured, the command line remains the same.
 
-# Requirements / Environment
-- Linux server
-- Python
-- Email address (gmail)
-- msmtp client
-- Debank API (paid subscription)
-- IFTTT (pro account)
+# Testing
+Afer you are setup with the services and requirements, here's how you can test monitoring on a wallet.
+
+- Create `config.json` and set `wallet_id` to the wallet you want to monitor (or you have keys to) and token to HEX
+- Run the script
+- Send HEX to the wallet (ensure it meets `MINIMUM_CHANGE` and `USD_MINIMUM` threshold values if enabled)
+- Wait 10 minutes (or whatever `SLEEP_SECONDS` value is, can be configured for more or less)
+- Check for SMS message with link to Debank portfolio transaction list to view recent activity (see which TX triggered the change in asset amount)
 
 # Notes
 - Adjust `SLEEP_SECONDS` in the script for how often to make calls to check for asset amount updates, default time is 10 minutes (more often = using more Debank API units, so be aware of that)
+- Adjust `MINIMUM_CHANGE` and `USD_MINIMUM` as necessary to avoid notifications due to small changes in asset amounts
 - Logs (text format) are kept in the local `logs/` directory for every run
-- 
