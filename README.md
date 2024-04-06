@@ -53,12 +53,12 @@ In this example, we monitor 0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx for asset
 Where `wallet_id` is the wallet address to monitor, `chain` is the blockchain network, `name` is the name of the token and `id` is the address (or if native token, the ticker) of the asset to monitor.
 
 # Requirements / Environment
-`Just the basics + Debank API units are required to run the script`
+**Just the basics + Debank API units are required to run the script**
 - Linux server
 - Python
 - Debank API (paid subscription)
 
-`And in addition to those, these apps and services are required to get SMS alerts`
+**And in addition to those, these apps and services are required to get SMS alerts**
 - msmtp client
 - Email address (gmail)
 - IFTTT (pro account)
