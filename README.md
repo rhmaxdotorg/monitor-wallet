@@ -1,5 +1,5 @@
 # monitor-wallet
-Monitor amount changes for a given wallet and list of tokens on Ethereum, PulseChain or any other chains supported by Debank. Even get SMS alerts!
+Monitor amount changes for a given wallet and list of tokens on Ethereum, PulseChain or any other chains supported by Debank. Get SMS alerts when asset values significantly change.
 
 # Intro
 This script uses the [Debank API](https://cloud.debank.com) (requires subscription for `units`) to monitor token amount changes for a wallet.
@@ -14,21 +14,34 @@ $ ./monitor.py (json config file)
 **Quick run**
 ```
 $ ./monitor.py config.json
-PLS:  100
-PLSX: 1000
-HEX:  10000
+
+PLS:  500
+PLSX: 500
+HEX:  50000
 INC:  1
 
-Change detected for PLS: 100 -> 105 -- https://debank.com/profile/0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/history
+PLSX: 5500
+
+PLSX amount changed +5000 (+0.23 USD value) to 5500 PLSX, below the threshold of 30 USD.
+Not sending notification.
+
+PLS:  500
+PLSX: 5500
+HEX:  50000
+INC:  1
+
+PLSX: 1005500
+
+PLSX amount changed +1000000 (+41.33 USD value) to 1005500 PLSX, meeting or exceeding the threshold of 30 USD.
+
 Notification sent.
-
-PLS:  105
-PLSX: 1000
-HEX:  10000
-INC:  1
 
 (continues monitoring from here...)
 ```
+
+As you can see, the user is notified only on the console when smaller amounts change the asset values, but SMS notification can be sent when larger changes occur in asset amounts. This is to prevent lots of notifications from small changes, can be enabled/disabled and of course will be more or less useful depending on the activity in the wallet and the granularity of notifications the user prefers.
+
+The notification sent is a ifttt shortened link which redirects to https://debank.com/profile/0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/history, so from there you can check the latest TXs including the one that triggered the notification.
 
 `MINIMUM_CHANGE` and `USD_MINIMUM` in the code are adjustable as necessary to avoid notifications due to small changes in asset amounts. For example, you could adjust them to only alert on large asset value or big dollar amount changes.
 
@@ -127,5 +140,5 @@ Afer you are setup with the services and requirements, here's how you can test m
 
 # Notes
 - Adjust `SLEEP_SECONDS` in the script for how often to make calls to check for asset amount updates, default time is 10 minutes (more often = using more Debank API units, so be aware of that)
-- Adjust `MINIMUM_CHANGE` and `USD_MINIMUM` as necessary to avoid notifications due to small changes in asset amounts
+- Adjust `MINIMUM_CHANGE` and `USD_MINIMUM` as necessary to avoid notifications due to small changes in asset amounts (default is 30 USD and it uses Dexsceener API to fetch asset prices)
 - Logs (text format) are kept in the local `logs/` directory for every run
