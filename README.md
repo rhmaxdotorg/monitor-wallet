@@ -98,7 +98,7 @@ $ ./monitor.py wallet.json
 
 ## SMS Alerts
 There are two parts to this.
-- Setup the msmtp email client (for example, using gmail account)
+- Setup the msmtp email client (install on ubuntu linux using `apt-get install msmtp` and using gmail account)
 - Setup IFTTT (requires Pro account)
 
 ### Email
