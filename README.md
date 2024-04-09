@@ -1,8 +1,14 @@
 # monitor-wallet
-Monitor amount changes for a given wallet and list of tokens on Ethereum, PulseChain or any other chains supported by Debank. Get SMS alerts when asset values significantly change.
+Monitor amount changes for a given wallet and list of tokens on Ethereum, PulseChain or any other chains supported by Debank.
+
+**Get Console and SMS alerts when asset values change.**
 
 # Intro
 This script uses the [Debank API](https://cloud.debank.com) (requires subscription for `units`) to monitor token amount changes for a wallet.
+
+![sms-2](https://github.com/rhmaxdotorg/monitor-wallet/assets/100790377/a2136440-e3ce-4d6b-9659-1b453b435b36)
+
+![sms-1](https://github.com/rhmaxdotorg/monitor-wallet/assets/100790377/723d7318-5a09-4ef2-84f1-2fab40b1cbb4)
 
 # Usage
 **Command line**
@@ -141,4 +147,4 @@ Afer you are setup with the services and requirements, here's how you can test m
 # Notes
 - Adjust `SLEEP_SECONDS` in the script for how often to make calls to check for asset amount updates, default time is 10 minutes (more often = using more Debank API units, so be aware of that)
 - Adjust `MINIMUM_CHANGE` and `USD_MINIMUM` as necessary to avoid notifications due to small changes in asset amounts (default is 30 USD and it uses Dexsceener API to fetch asset prices)
-- Logs (text format) are kept in the local `logs/` directory for every run
+- Logs (text format) are kept in the local `logs` directory for every run
